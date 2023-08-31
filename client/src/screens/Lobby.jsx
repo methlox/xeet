@@ -1,7 +1,8 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
-import { Box } from "@chakra-ui/react";
+import { Box, Center, Container, Text } from "@chakra-ui/react";
+
 
 const LobbyScreen = () => {
   const [email, setEmail] = useState("");
@@ -34,34 +35,35 @@ const LobbyScreen = () => {
   }, [socket, handleJoinRoom]);
 
   return (
-    <>
-    <Box bgColor="#0B1726">
-      <div>
-        <h1>Lobby</h1>
-        <form onSubmit={handleSubmitForm}>
-          <label htmlFor="email" className="italic">
-            Email ID
-          </label>
-          <input
-            type="email"
-            id="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <br />
-          <label htmlFor="room">Room Number</label>
-          <input
-            type="text"
-            id="room"
-            value={room}
-            onChange={(e) => setRoom(e.target.value)}
-          />
-          <br />
-          <button>Join</button>
-        </form>
-      </div>
+    <Container bgColor="#02070D" h={'100vh'} w='100%' maxWidth='2000px'>
+      <br />
+      <Box bgColor="#008F8C" p={6} alignItems='center'>
+        <div>
+          <Text fontFamily='kayak' fontSize={80} color={'white'}>Lobby</Text>
+          <form onSubmit={handleSubmitForm}>
+            <label htmlFor="email" className="italic">
+              Email ID
+            </label>
+            <input
+              type="email"
+              id="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            <br />
+            <label htmlFor="room">Room Number</label>
+            <input
+              type="text"
+              id="room"
+              value={room}
+              onChange={(e) => setRoom(e.target.value)}
+            />
+            <br />
+            <button>Join</button>
+          </form>
+        </div>
       </Box>
-    </>
+    </Container>
   );
 };
 
