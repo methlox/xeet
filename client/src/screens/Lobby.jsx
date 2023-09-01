@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
-import { Box, Button, Center, Container, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Input, Text } from "@chakra-ui/react";
 
 
 const LobbyScreen = () => {

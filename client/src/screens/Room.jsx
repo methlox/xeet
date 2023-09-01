@@ -2,6 +2,8 @@ import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
+import { Box, Button, Container, Input, Text } from "@chakra-ui/react";
+
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -110,26 +112,27 @@ const RoomPage = () => {
   ]);
 
   return (
-    <div>
-      <h1>Room Page</h1>
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
+    <Container bgColor="#F2A71B" h={'100vh'} w='100%' maxWidth='2000px'>
+      <Text fontFamily='kayak' fontSize={80} color={'white'}>Meeting</Text>
+      <Text fontFamily='sf-m' fontSize={25}>{remoteSocketId ? "Connected" : "No one in room"}</Text>
+      <br />
+      {myStream && <Button onClick={sendStreams} marginRight={3}>Send Stream</Button>}
+      {remoteSocketId && <Button onClick={handleCallUser}>CALL</Button>}
       {myStream && (
         <>
-          <h1>My Stream</h1>
+          <Text fontFamily='sf-m' fontSize={25} marginTop={3} marginBottom={3}>My Stream</Text>
           <ReactPlayer
             playing
             muted
-            height="100px"
-            width="200px"
+            height="400px"
+            width="500px"
             url={myStream}
           />
         </>
       )}
       {remoteStream && (
         <>
-          <h1>Remote Stream</h1>
+          <Text fontFamily='sf-m' fontSize={25} marginTop={3} marginBottom={3}>Remote Stream</Text>
           <ReactPlayer
             playing
             muted
@@ -139,7 +142,7 @@ const RoomPage = () => {
           />
         </>
       )}
-    </div>
+    </Container>
   );
 };
 
