@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSocket } from "../context/SocketProvider";
-import { Box, Button, Center, Container, Text } from "@chakra-ui/react";
+import { Box, Button, Center, Container, Input, Text } from "@chakra-ui/react";
 
 
 const LobbyScreen = () => {
@@ -41,22 +41,26 @@ const LobbyScreen = () => {
         <div>
           <Text fontFamily='kayak' fontSize={80} color={'white'}>Lobby</Text>
           <form onSubmit={handleSubmitForm}>
-            <Text htmlFor="email" fontFamily='sf-m'>
+            <Text htmlFor="email" fontFamily='sf-m' fontSize={25}>
               Email ID
             </Text>
-            <input
+            <Input
               type="email"
               id="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              isRequired='true'
+              focusBorderColor='black'
             />
             <br />
-            <Text htmlFor="room" fontFamily='sf-m'>Room Number</Text>
-            <input
+            <Text htmlFor="room" fontFamily='sf-m' fontSize={25}>Room Code</Text>
+            <Input
               type="text"
               id="room"
               value={room}
               onChange={(e) => setRoom(e.target.value)}
+              isRequired='true'
+              focusBorderColor='black'
             />
             <br />
             <Button type='submit' marginTop={3}>Join</Button>
