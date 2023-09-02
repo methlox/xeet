@@ -1,0 +1,16 @@
+.card {
+  padding: .4em 1.7em;
+  align-items: center;
+  background-color: #14140F;
+  border-radius: 15px;
+}
+
+:not(.overlay) > .card {
+  transition: 400ms background ease;
+  will-change: background;
+}
+
+:not(.overlay) > .card:hover {
+  --lightness: 100%;
+  background: hsla(var(--hsl), 0.1);
+}

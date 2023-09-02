@@ -3,7 +3,52 @@ import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
 import { Box, Button, Container, Input, Text } from "@chakra-ui/react";
+import "./room.css";
 
+const cardsContainer = document.querySelector(".cards");
+const cardsContainerInner = document.querySelector(".cards__inner");
+const cards = Array.from(document.querySelectorAll(".card"));
+const overlay = document.querySelector(".overlay");
+
+const applyOverlayMask = (e) => {
+  const overlayEl = e.currentTarget;
+  const x = e.pageX - cardsContainer.offsetLeft;
+  const y = e.pageY - cardsContainer.offsetTop;
+
+  overlayEl.style = `--opacity: 1; --x: ${x}px; --y:${y}px;`;
+};
+
+const createOverlayCta = (overlayCard, ctaEl) => {
+  const overlayCta = document.createElement("div");
+  overlayCta.classList.add("cta");
+  overlayCta.textContent = ctaEl.textContent;
+  overlayCta.setAttribute("aria-hidden", true);
+  overlayCard.append(overlayCta);
+};
+
+const observer = new ResizeObserver((entries) => {
+  entries.forEach((entry) => {
+    const cardIndex = cards.indexOf(entry.target);
+    let width = entry.borderBoxSize[0].inlineSize;
+    let height = entry.borderBoxSize[0].blockSize;
+
+    if (cardIndex >= 0) {
+      overlay.children[cardIndex].style.width = `${width}px`;
+      overlay.children[cardIndex].style.height = `${height}px`;
+    }
+  });
+});
+
+const initOverlayCard = (cardEl) => {
+  const overlayCard = document.createElement("div");
+  overlayCard.classList.add("card");
+  createOverlayCta(overlayCard, cardEl.lastElementChild);
+  overlay.append(overlayCard);
+  observer.observe(cardEl);
+};
+
+cards.forEach(initOverlayCard);
+document.body.addEventListener("pointermove", applyOverlayMask);
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -112,34 +157,50 @@ const RoomPage = () => {
   ]);
 
   return (
-    <Container bgColor="#F2A71B" h={'100vh'} w='100%' maxWidth='2000px'>
-      <Text fontFamily='kayak' fontSize={80} color={'white'}>Meeting</Text>
-      <Text fontFamily='sf-m' fontSize={25}>{remoteSocketId ? "Connected" : "No one in room"}</Text>
+    <Container bgColor="#F26800" h={"200vh"} w="100%" maxWidth="2000px">
+      <Text fontFamily="kayak" fontSize={80} color={"white"}>
+        Meeting
+      </Text>
+      <Text fontFamily="sf-m" fontSize={25}>
+        {remoteSocketId ? "Connected" : "No one in room"}
+      </Text>
       <br />
-      {myStream && <Button onClick={sendStreams} marginRight={3}>Send Stream</Button>}
-      {remoteSocketId && <Button onClick={handleCallUser}>CALL</Button>}
+      {myStream && (
+        <Button onClick={sendStreams} marginRight={3}>
+          Send Stream
+        </Button>
+      )}
+      {remoteSocketId && <Button onClick={handleCallUser}>Call</Button>}
       {myStream && (
         <>
-          <Text fontFamily='sf-m' fontSize={25} marginTop={3} marginBottom={3}>My Stream</Text>
-          <ReactPlayer
-            playing
-            muted
-            height="400px"
-            width="500px"
-            url={myStream}
-          />
+          <Text fontFamily="sf-m" fontSize={25} marginTop={3} marginBottom={3}>
+            My Stream
+          </Text>
+          <div class="card">
+            <ReactPlayer
+              playing
+              muted
+              height="200px"
+              width="200px"
+              url={myStream}
+            />
+          </div>
         </>
       )}
       {remoteStream && (
         <>
-          <Text fontFamily='sf-m' fontSize={25} marginTop={3} marginBottom={3}>Remote Stream</Text>
-          <ReactPlayer
-            playing
-            muted
-            height="100px"
-            width="200px"
-            url={remoteStream}
-          />
+          <Text fontFamily="sf-m" fontSize={25} marginTop={3} marginBottom={3}>
+            Remote Stream
+          </Text>
+          <div class="card">
+            <ReactPlayer
+              playing
+              muted
+              height="200px"
+              width="200px"
+              url={remoteStream}
+            />
+          </div>
         </>
       )}
     </Container>
