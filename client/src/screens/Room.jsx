@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useSocket } from "../context/SocketProvider";
-import { Box, Button, Container, Input, Text } from "@chakra-ui/react";
+import { Box, Button, Container, Input, Text, HStack } from "@chakra-ui/react";
 import "./room.css";
 
 const cardsContainer = document.querySelector(".cards");
@@ -171,38 +171,49 @@ const RoomPage = () => {
         </Button>
       )}
       {remoteSocketId && <Button onClick={handleCallUser}>Call</Button>}
-      {myStream && (
-        <>
-          <Text fontFamily="sf-m" fontSize={25} marginTop={3} marginBottom={3}>
-            My Stream
-          </Text>
-          <div class="card">
-            <ReactPlayer
-              playing
-              muted
-              height="200px"
-              width="200px"
-              url={myStream}
-            />
-          </div>
-        </>
-      )}
-      {remoteStream && (
-        <>
-          <Text fontFamily="sf-m" fontSize={25} marginTop={3} marginBottom={3}>
-            Remote Stream
-          </Text>
-          <div class="card">
-            <ReactPlayer
-              playing
-              muted
-              height="200px"
-              width="200px"
-              url={remoteStream}
-            />
-          </div>
-        </>
-      )}
+   
+        {myStream && (
+          <>
+            <Text
+              fontFamily="sf-m"
+              fontSize={25}
+              marginTop={3}
+              marginBottom={3}
+            >
+              My Stream
+            </Text>
+            <div class="card">
+              <ReactPlayer
+                playing
+                muted
+                height="200px"
+                width="200px"
+                url={myStream}
+              />
+            </div>
+          </>
+        )}
+        {remoteStream && (
+          <>
+            <Text
+              fontFamily="sf-m"
+              fontSize={25}
+              marginTop={3}
+              marginBottom={3}
+            >
+              Remote Stream
+            </Text>
+            <div class="card">
+              <ReactPlayer
+                playing
+                muted
+                height="200px"
+                width="200px"
+                url={remoteStream}
+              />
+            </div>
+          </>
+        )}
     </Container>
   );
 };

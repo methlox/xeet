@@ -3,6 +3,7 @@
   align-items: center;
   background-color: #14140F;
   border-radius: 15px;
+  max-width: 260px;
 }
 
 :not(.overlay) > .card {
