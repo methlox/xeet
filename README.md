@@ -1,3 +1,18 @@
+# Run Locally
+
+
+```
+clone the repository
+cd client
+npm i
+npm run dev 
+cd ..
+cd server
+npm i
+npm start
+```
+
+
 <h1>Progress<h1 />
 
 ![p5](https://github.com/methlox/xeet/assets/84025779/88651017-55d0-49a0-9737-737ba26a3cb4)
